@@ -26,9 +26,9 @@ try {
         return res.status(400).json({message:"Email Not found Please Register"})
     }
     if(userData.role === "Teacher"){
-return res.status(200).json({mesaage:"welcome Teacher",userData,token})
+return res.status(200).json({mesaage:"welcome Teacher",role:userData.role,id:userData._id,token})
     }
-    res.status(200).json({message:"Login Sucessfull" ,userData,token})
+    res.status(200).json({message:"Login Sucessfull" ,role:userData.role,id:userData._id,token})
 } catch (error) {
     res.status(400).json(error)
 }
@@ -46,7 +46,8 @@ try {
 const dashboard = async(req,res)=>{
 try {
     const userProfile = await Users.findById(req.params.id)
-    res.status(200).json({message:`${userProfile.name} - ${userProfile.role}`})
+    
+    res.status(200).json({name:userProfile.name , email:userProfile.email})
 } catch (error) {
     res.status(400).json(error)
 }
